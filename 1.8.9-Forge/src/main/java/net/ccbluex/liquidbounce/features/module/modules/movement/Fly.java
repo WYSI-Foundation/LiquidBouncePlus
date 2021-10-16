@@ -117,6 +117,7 @@ public class Fly extends Module {
     private boolean wasDead;
 
     private int boostTicks = 0;
+    private int verusJumpTimes = 0;
 
     private boolean verusDmged = false;
 
@@ -182,8 +183,10 @@ public class Fly extends Module {
                         mc.thePlayer.motionX = mc.thePlayer.motionZ = 0;
                     }
                 } else if (verusDmgModeValue.get().equalsIgnoreCase("Test")) {
-                    if (mc.thePlayer.onGround)
+                    if (mc.thePlayer.onGround) {
                         mc.thePlayer.jump();
+                        verusJumpTimes = 1;
+                    }
                 } else {
                     // set dmged = true since there's no damage method
                     verusDmged = true;
@@ -214,7 +217,7 @@ public class Fly extends Module {
     @Override
     public void onDisable() {
         wasDead = false;
-
+        verusJumpTimes=0;
         if (mc.thePlayer == null)
             return;
 
@@ -302,7 +305,14 @@ public class Fly extends Module {
             case "verus":
                 mc.thePlayer.capabilities.isFlying = false;
                 mc.thePlayer.motionX = mc.thePlayer.motionZ = mc.thePlayer.motionY = 0;
-
+                
+                if (verusDmgModeValue.get().equalsIgnoreCase("Test") && verusJumpTimes<3) {
+                    if (mc.thePlayer.onGround) {
+                        mc.thePlayer.jump();
+                        verusJumpTimes += 1;
+                    }
+                    return;
+                }
                 if (!verusDmged && mc.thePlayer.hurtTime > 0) {
                     verusDmged = true;
                     boostTicks = verusDmgTickValue.get();
@@ -439,6 +449,11 @@ public class Fly extends Module {
     public void onPacket(PacketEvent event) {
         final Packet<?> packet = event.getPacket();
         final String mode = modeValue.get();
+        
+        if(verusDmgModeValue.get().equalsIgnoreCase("Test") && verusJumpTimes<3 && mode.equalsIgnoreCase("Verus")) {
+            final C03PacketPlayer packetPlayer = (C03PacketPlayer) packet;
+            packetPlayer.onGround = false;
+        }
 
         if(noPacketModify)
             return;
