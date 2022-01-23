@@ -41,12 +41,12 @@ public class VerusDrew extends SpeedMode {
         if (mc.thePlayer.onGround) {
             mc.thePlayer.jump();
             if(mc.thePlayer.isSprinting()) {
-                float f = mc.thePlayer.rotationYaw * 0.017453292F;
-                mc.thePlayer.motionX -= MathHelper.sin(f) * 0.2;
-                mc.thePlayer.motionZ += MathHelper.cos(f) * 0.2;
+                MovementUtils.strafe(MovementUtils.getSpeed()+0.2F);
             }
         }else{
-            MovementUtils.strafe(0.36F); // why complicated stuffs when you can just
+            if(MovementUtils.getSpeed() < 0.36) {
+                MovementUtils.strafe(0.36F); // why complicated stuffs when you can just
+            }
         }
     }
 
