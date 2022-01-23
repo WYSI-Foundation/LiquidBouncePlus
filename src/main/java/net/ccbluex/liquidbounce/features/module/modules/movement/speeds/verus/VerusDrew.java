@@ -30,9 +30,11 @@ public class VerusDrew extends SpeedMode {
         final Speed speed = (Speed) LiquidBounce.moduleManager.getModule(Speed.class);
         if(speed == null)
             return;
-
-        if (!mc.gameSettings.keyBindForward.isKeyDown() && !mc.gameSettings.keyBindLeft.isKeyDown() && !mc.gameSettings.keyBindRight.isKeyDown() && !mc.gameSettings.keyBindBack.isKeyDown())
+        if(!MovementUtils.isMoving()) {
+            mc.thePlayer.motionX = 0.0f;
+            mc.thePlayer.motionZ = 0.0f;
             return;
+        }
 
         mc.timer.timerSpeed = speed.verusTimer.get();
         
@@ -43,16 +45,9 @@ public class VerusDrew extends SpeedMode {
                 mc.thePlayer.motionX -= MathHelper.sin(f) * 0.2;
                 mc.thePlayer.motionZ += MathHelper.cos(f) * 0.2;
             }
+        }else{
+            MovementUtils.strafe(0.36F); // why complicated stuffs when you can just
         }
-
-        // double speed, float forward, float strafing, float yaw
-        float forward = mc.thePlayer.movementInput.moveForward;
-        float strafing = mc.thePlayer.movementInput.moveStrafe;
-        float yaw = mc.thePlayer.rotationYaw;
-
-        // check movement
-        if (forward == 0.0F && strafing == 0.0F) return;
-        MovementUtils.strafe(0.36F); // why complicated stuffs when you can just
     }
 
     @Override
