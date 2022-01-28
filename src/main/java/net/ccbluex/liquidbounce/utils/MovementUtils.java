@@ -40,6 +40,8 @@ public final class MovementUtils extends MinecraftInstance {
         strafe(getSpeed());
     }
 
+    public static void move() {move(getSpeed());}
+
     public static boolean isMoving() {
         return mc.thePlayer != null && (mc.thePlayer.movementInput.moveForward != 0F || mc.thePlayer.movementInput.moveStrafe != 0F);
     }
@@ -55,6 +57,15 @@ public final class MovementUtils extends MinecraftInstance {
         final double yaw = getDirection();
         mc.thePlayer.motionX = -Math.sin(yaw) * speed;
         mc.thePlayer.motionZ = Math.cos(yaw) * speed;
+    }
+
+    public static void move(final float speed) {
+        if(!isMoving())
+            return;
+
+        final double yaw = getDirection();
+        mc.thePlayer.motionX += -Math.sin(yaw) * speed;
+        mc.thePlayer.motionZ += Math.cos(yaw) * speed;
     }
 
     public static void forward(final double length) {
