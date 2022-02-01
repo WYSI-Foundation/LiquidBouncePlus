@@ -38,6 +38,7 @@ import net.minecraft.util.*;
 @ModuleInfo(name = "NoFall", spacedName = "No Fall", description = "Prevents you from taking fall damage.", category = ModuleCategory.PLAYER)
 public class NoFall extends Module {
     public final ListValue modeValue = new ListValue("Mode", new String[]{"SpoofGround", "NoGround", "Packet", "NewPacket", "MLG" , "AAC", "LAAC", "AAC3.3.11", "AAC3.3.15", "Spartan", "CubeCraft" , "Hypixel", "NewHypixel", "Damage", "Edit", "Verus"}, "SpoofGround");
+    public final ListValue spoofModeValue = new ListValue("SpoofGround-Mode", new String[]{"Always", "Smart"}, "Always")
     private final FloatValue minFallDistance = new FloatValue("MinMLGHeight", 5F, 2F, 50F);
     private final BoolValue voidCheck = new BoolValue("Void-Check", true);
 
@@ -162,8 +163,12 @@ public class NoFall extends Module {
             final C03PacketPlayer playerPacket = (C03PacketPlayer) packet;
 
             if (mode.equalsIgnoreCase("SpoofGround"))
-                playerPacket.onGround = true;
-
+                if (spoofMode.equalsIgnoreCase("Always"))                
+                    playerPacket.onGround = true;
+                if (spoofMode.equalsIgnoreCase("Smart")
+                        && mc.thePlayer.fallDistance > 3)
+                    playerPacket.onGround = true;
+            
             if (mode.equalsIgnoreCase("NoGround"))
                 playerPacket.onGround = false;
 
