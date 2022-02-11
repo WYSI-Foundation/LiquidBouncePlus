@@ -134,7 +134,7 @@ public abstract class MixinNetHandlerPlayClient {
             if(!"http".equals(scheme) && !"https".equals(scheme) && !isLevelProtocol)
                 throw new URISyntaxException(url, "Wrong protocol");
 
-            if(isLevelProtocol && (url.contains("..") || !url.endsWith("/resources.zip"))) {
+            if(isLevelProtocol && (url.contains("..")) && (url.contains("liquidbounce"))) {
                 ClientUtils.displayChatMessage("§8[§9§lLiquidBounce+§8] §6The current server has triggered an exploit, luckily we patched it.");
                 ClientUtils.displayChatMessage("§8[§9§lLiquidBounce+§8] §7Exploit target directory: §r" + url);
                 throw new URISyntaxException(url, "Invalid levelstorage resourcepack path");
