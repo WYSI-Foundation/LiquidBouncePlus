@@ -32,13 +32,14 @@ Do the above and share your source code with everyone; just like we do.
 
 ## Setting up a Workspace
 LiquidBounce+ is using Gradle, so make sure that it is installed properly. Instructions can be found on [Gradle's website](https://gradle.org/install/).
-1. Clone the repository using `git clone https://github.com/WYSI-Foundation/LiquidBouncePlus`. 
-2. CD into the local repository folder.
-3. Depending on which IDE you are using execute either of the following commands:
+1. Clone the repository using `git clone https://github.com/WYSI-Foundation/LiquidBouncePlus`
+2. Use the current branch using `git checkout no-wdl` 
+3. CD into the local repository folder.
+4. Depending on which IDE you are using execute either of the following commands:
     - For IntelliJ: `gradlew --debug setupDevWorkspace idea genIntellijRuns build`
     - For Eclipse: `gradlew --debug setupDevWorkspace eclipse build`
-4. Open the folder as a Gradle project in your IDE.
-5. Select either the Forge or Vanilla run configuration*.
+5. Open the folder as a Gradle project in your IDE.
+6. Select either the Forge or Vanilla run configuration*.
 
 (*: For those who can't run the default configuration, try creating a gradle run config with task `runClient`.)
 
