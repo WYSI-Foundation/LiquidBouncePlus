@@ -2,7 +2,7 @@ plugins {
     id "java"
     id "idea"
     id "org.jetbrains.kotlin.jvm"
-    id "com.github.johnrengelman.shadow" version "4.0.4"
+    id "com.github.johnrengelman.shadow" version "6.1.0"
     id "net.minecraftforge.gradle.forge"
     id "org.spongepowered.mixin"
 }
@@ -65,7 +65,7 @@ dependencies {
     compile 'com.jagrosh:DiscordIPC:0.4'
     include "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
 
-    include("com.github.CCBlueX:Elixir:1.2.4") {
+    include("com.github.Kawa1Ares:Elixir:1.2.6") {
         exclude module: "kotlin-stdlib"
         exclude module: "authlib"
     }
